@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
+import openpyxl
 
 
 class Ui_MainWindow(object):
@@ -26,15 +27,29 @@ class Ui_MainWindow(object):
         self.browseButton = QtWidgets.QPushButton(self.centralwidget)
         self.browseButton.setGeometry(QtCore.QRect(550, 40, 80, 23))
         self.browseButton.setObjectName("browseButton")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(10, 40, 191, 21))
+        self.selectedFile = QtWidgets.QLabel(self.centralwidget)
+        self.selectedFile.setGeometry(QtCore.QRect(10, 40, 111, 21))
         font = QtGui.QFont()
         font.setFamily("Bahnschrift")
         font.setPointSize(14)
-        self.label.setFont(font)
-        self.label.setScaledContents(False)
-        self.label.setWordWrap(True)
-        self.label.setObjectName("label")
+        self.selectedFile.setFont(font)
+        self.selectedFile.setScaledContents(False)
+        self.selectedFile.setWordWrap(True)
+        self.selectedFile.setObjectName("selectedFile")
+        self.selectedFile_2 = QtWidgets.QLabel(self.centralwidget)
+        self.selectedFile_2.setGeometry(QtCore.QRect(10, 100, 161, 21))
+        font = QtGui.QFont()
+        font.setFamily("Bahnschrift")
+        font.setPointSize(14)
+        self.selectedFile_2.setFont(font)
+        self.selectedFile_2.setScaledContents(False)
+        self.selectedFile_2.setWordWrap(True)
+        self.selectedFile_2.setObjectName("selectedFile_2")
+        self.comboBox = QtWidgets.QComboBox(self.centralwidget)
+        self.comboBox.setGeometry(QtCore.QRect(180, 100, 69, 22))
+        self.comboBox.setObjectName("comboBox")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 640, 21))
@@ -94,7 +109,8 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "XLSX Reader"))
         self.browseButton.setText(_translate("MainWindow", "Browse"))
         self.browseButton.clicked.connect(self.browseFiles)
-        self.label.setText(_translate("MainWindow", "Selected File :"))
+        self.selectedFile.setText(_translate("MainWindow", "Selected File :"))
+        self.selectedFile_2.setText(_translate("MainWindow", "Select Subject Code :")) # noqa E501
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuRecent_Files.setTitle(_translate("MainWindow", "Recent Files")) # noqa E501
         self.menuSettings.setTitle(_translate("MainWindow", "Edit"))
@@ -115,11 +131,47 @@ class Ui_MainWindow(object):
 
     def browseFiles(self):
         browsedFilePath = QFileDialog.getOpenFileName(self.centralwidget, "Open File", filter="Excel Files (*xlsx)") # noqa E501
-        print(browsedFilePath)
-        if browsedFilePath[0]:
-            self.pathLineEdit.setText(browsedFilePath[0])
+        self.filePath = browsedFilePath[0]
+        if self.filePath:
+            self.pathLineEdit.setText(self.filePath)
+            self.ReadFile()
         else:
             self.pathLineEdit.setText("No file selected.")
+
+    def ReadFile(self):
+
+        wb = openpyxl.load_workbook(self.filePath)
+        sheet = wb.active
+
+        num_rows = sheet.max_row # noqa F841
+        num_columns = sheet.max_column # noqa F841
+
+        first_row_values = [cell.value for cell in sheet[1]]
+
+        marks_column_index = first_row_values.index("Marks") + 1
+
+        mark_values_set = set()
+        # Initialize a variable to store the previous row number
+        prev_row_number = 0
+        # Loop through all the rows and retrieve values from the "Marks" column
+        for i, row in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2): # noqa E501
+            mark_value = row[marks_column_index - 1]
+            # Skip empty cells
+            if mark_value is None:
+                continue
+            # Skip if the current row has the same row number as the previous row # noqa E501
+            if i == prev_row_number + 1:
+                continue
+            # Add non-empty mark values to the set
+            mark_values_set.add(mark_value)
+            # Update the previous row number
+            prev_row_number = i
+        # Convert the set to a list
+        mark_values_list = list(mark_values_set)
+        mark_values_list = [str(i) for i in mark_values_list]
+
+        self.comboBox.clear()
+        self.comboBox.addItems(mark_values_list)
 
 
 if __name__ == "__main__":
