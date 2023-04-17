@@ -11,6 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 import openpyxl
+import webbrowser
 
 
 class Ui_MainWindow(object):
@@ -122,12 +123,17 @@ class Ui_MainWindow(object):
         self.actionCtrl_O.setText(_translate("MainWindow", "Ctrl+O"))
         self.actionOpen_.setText(_translate("MainWindow", "Open"))
         self.actionOpen_.setShortcut(_translate("MainWindow", "Ctrl+O"))
+        self.actionOpen_.triggered.connect(self.browseFiles)
         self.actionTest1.setText(_translate("MainWindow", "Test1"))
         self.actionTest2.setText(_translate("MainWindow", "Test2"))
         self.actionSave_2.setText(_translate("MainWindow", "Save"))
         self.actionSave_2.setShortcut(_translate("MainWindow", "Ctrl+S"))
         self.actionSettings.setText(_translate("MainWindow", "Settings"))
         self.actionCheck_For_Updates.setText(_translate("MainWindow", "Check For Updates")) # noqa E501
+        self.actionCheck_For_Updates.triggered.connect(self.openGithub)
+
+    def openGithub(self):
+        webbrowser.open_new_tab("https://github.com/ImTani/XLSX-Reader-2.0")
 
     def browseFiles(self):
         browsedFilePath = QFileDialog.getOpenFileName(self.centralwidget, "Open File", filter="Excel Files (*xlsx)") # noqa E501
@@ -172,6 +178,9 @@ class Ui_MainWindow(object):
 
         self.comboBox.clear()
         self.comboBox.addItems(mark_values_list)
+
+    def updateUI(self):
+        alphabet_dict = {chr(65+i): i+1 for i in range(26)}
 
 
 if __name__ == "__main__":
