@@ -113,6 +113,19 @@
      </property>
     </item>
    </widget>
+   <widget class="QPushButton" name="checkButton">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>100</y>
+      <width>61</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Check</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

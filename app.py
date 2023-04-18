@@ -1,7 +1,7 @@
 import sys
 import webbrowser
 import openpyxl
-from main2 import Ui_MainWindow
+from main import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication
 
 
@@ -10,6 +10,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.browseButton.clicked.connect(self.browseFiles)
+        self.checkButton.clicked.connect(self.getInfo)
         self.actionOpen_.triggered.connect(self.browseFiles)
         self.actionCheck_For_Updates.triggered.connect(self.openGithub)
         # Add your application logic here
@@ -60,6 +61,32 @@ class MyApp(QMainWindow, Ui_MainWindow):
 
         self.comboBox.clear()
         self.comboBox.addItems(mark_values_list)
+
+    def getInfo(self):
+        # Load the workbook and active sheet
+        try:
+            subCode = int(self.comboBox.currentText())
+        except ValueError:
+            return
+        wb = openpyxl.load_workbook(window.filePath)
+        sheet = wb.active
+
+        for column_cells in sheet.iter_cols(min_row=1, max_row=1, values_only=True):  # noqa E501
+            for cell_value in column_cells:
+                if cell_value == "Marks":
+                    # Get the column index of the "Marks" cell
+                    column_index = column_cells.index(cell_value) + 2
+
+                    # Fetch data from all cells in the column except the first row # noqa E501
+                    for row_cells in sheet.iter_rows(min_row=2, max_row=None,
+                                                     min_col=column_index, max_col=column_index, values_only=True):  # noqa E501
+                        for cell_value in row_cells:
+                            # Do something with the cell value
+                            if cell_value is None:
+                                continue
+                            elif cell_value == subCode:
+                                # Your logic here
+                                print(f"match found at {cell_value}")
 
 
 if __name__ == "__main__":
