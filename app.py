@@ -65,7 +65,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
     def getInfo(self):
         # Load the workbook and active sheet
         try:
-            subCode = int(self.comboBox.currentText())
+            self.subCode = int(self.comboBox.currentText())
         except ValueError:
             return
         wb = openpyxl.load_workbook(window.filePath)
@@ -84,9 +84,8 @@ class MyApp(QMainWindow, Ui_MainWindow):
                             # Do something with the cell value
                             if cell_value is None:
                                 continue
-                            elif cell_value == subCode:
-                                # Your logic here
-                                print(f"match found at {cell_value}")
+                            elif cell_value == self.subCode:
+                                print(row_cells)
 
 
 if __name__ == "__main__":
