@@ -2,7 +2,7 @@ import sys
 import webbrowser
 import openpyxl
 from main import Ui_MainWindow
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication, QTableWidgetItem  # noqa E501
 
 
 class MyApp(QMainWindow, Ui_MainWindow):
@@ -63,6 +63,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         self.comboBox.addItems(mark_values_list)
 
     def getInfo(self):
+        subCodeOccured = 0
         # Load the workbook and active sheet
         try:
             self.subCode = int(self.comboBox.currentText())
@@ -85,7 +86,15 @@ class MyApp(QMainWindow, Ui_MainWindow):
                             if cell_value is None:
                                 continue
                             elif cell_value == self.subCode:
-                                print(row_cells)
+                                subCodeOccured += 1
+
+        self.subCodeOccurCount = subCodeOccured
+
+        self.makeTable()
+
+    def makeTable(self):
+        self.tableWidget.setRowCount(self.subCodeOccurCount)
+        self.tableWidget.setColumnCount(4)
 
 
 if __name__ == "__main__":
