@@ -232,7 +232,7 @@
      </font>
     </property>
     <property name="text">
-     <string>98%</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="minScoreValue">
@@ -250,7 +250,7 @@
      </font>
     </property>
     <property name="text">
-     <string>98%</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="totalStudentValue">
@@ -268,7 +268,7 @@
      </font>
     </property>
     <property name="text">
-     <string>5</string>
+     <string/>
     </property>
    </widget>
   </widget>
