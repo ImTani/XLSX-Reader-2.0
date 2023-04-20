@@ -51,7 +51,7 @@
      <rect>
       <x>550</x>
       <y>40</y>
-      <width>80</width>
+      <width>91</width>
       <height>23</height>
      </rect>
     </property>
@@ -179,9 +179,9 @@
    <widget class="QPushButton" name="saveButton">
     <property name="geometry">
      <rect>
-      <x>436</x>
+      <x>446</x>
       <y>400</y>
-      <width>211</width>
+      <width>191</width>
       <height>30</height>
      </rect>
     </property>
@@ -339,8 +339,6 @@
      <property name="title">
       <string>Recent Files</string>
      </property>
-     <addaction name="actionTest1"/>
-     <addaction name="actionTest2"/>
     </widget>
     <addaction name="actionOpen_"/>
     <addaction name="menuRecent_Files"/>
@@ -352,7 +350,13 @@
     <property name="title">
      <string>Edit</string>
     </property>
-    <addaction name="actionSettings"/>
+    <widget class="QMenu" name="menuSettings_2">
+     <property name="title">
+      <string>Settings</string>
+     </property>
+     <addaction name="actionClear_Recent_Files"/>
+    </widget>
+    <addaction name="menuSettings_2"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -423,14 +427,19 @@
     <bool>true</bool>
    </property>
   </action>
-  <action name="actionSettings">
-   <property name="text">
-    <string>Settings</string>
-   </property>
-  </action>
   <action name="actionCheck_For_Updates">
    <property name="text">
     <string>Check For Updates</string>
+   </property>
+  </action>
+  <action name="actionClear_Recent">
+   <property name="text">
+    <string>Clear Recent Files</string>
+   </property>
+  </action>
+  <action name="actionClear_Recent_Files">
+   <property name="text">
+    <string>Clear Recent Files</string>
    </property>
   </action>
  </widget>

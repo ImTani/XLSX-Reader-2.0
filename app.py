@@ -1,7 +1,10 @@
 import sys
+import os
 import webbrowser
 import openpyxl
 from main import Ui_MainWindow
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication, QTableWidgetItem  # noqa E501
 
 
@@ -11,25 +14,33 @@ class MyApp(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.browseButton.clicked.connect(self.browseFiles)
         self.checkButton.clicked.connect(self.getInfo)
+        self.saveButton.clicked.connect(self.saveFile)
         self.actionOpen_.triggered.connect(self.browseFiles)
         self.actionCheck_For_Updates.triggered.connect(self.openGithub)
+        self.actionSave_2.triggered.connect(self.saveFile)
+        self.actionClear_Recent_Files.triggered.connect(self.clearRecentFilesMenu)  # noqa E501
         # Add your application logic here
 
     def browseFiles(self):
         browsedFilePath = QFileDialog.getOpenFileName(self.centralwidget, "Open File", filter="Excel Files (*xlsx)") # noqa E501
         self.filePath = browsedFilePath[0]
         if self.filePath:
-            self.pathLineEdit.setText(self.filePath)
-            self.ReadFile()
+            self.tableWidget.setRowCount(0)
+            self.ReadFile(self.filePath)
         else:
             self.pathLineEdit.setText("No file selected.")
 
     def openGithub(self):
         webbrowser.open_new_tab("https://github.com/ImTani/XLSX-Reader-2.0")
 
-    def ReadFile(self):
+    def ReadFile(self, filePath):
 
-        wb = openpyxl.load_workbook(self.filePath)
+        self.filePath = filePath
+
+        self.addRecentFile(filePath)
+        self.pathLineEdit.setText(filePath)
+
+        wb = openpyxl.load_workbook(filePath)
         sheet = wb.active
 
         num_rows = sheet.max_row # noqa F841
@@ -62,6 +73,31 @@ class MyApp(QMainWindow, Ui_MainWindow):
         self.comboBox.clear()
         self.comboBox.addItems(mark_values_list)
 
+    def addRecentFile(self, file_path):
+        settings = QSettings('TaniDev', 'XL_Reader')
+        recent_files = settings.value('recent_files', [])
+        if file_path in recent_files:
+            recent_files.remove(file_path)
+        recent_files.insert(0, file_path)
+        if len(recent_files) > 5:
+            recent_files.pop()
+        settings.setValue('recent_files', recent_files)
+        self.updateRecentFilesMenu()
+
+    def updateRecentFilesMenu(self):
+        settings = QSettings('TaniDev', 'XL_Reader')
+        recent_files = settings.value('recent_files', [])
+        self.menuRecent_Files.clear()
+        for i, file_path in enumerate(recent_files):
+            action = QtWidgets.QAction(f"{i+1}. {file_path}", self)
+            action.triggered.connect(lambda _, fp=file_path: self.ReadFile(fp))
+            self.menuRecent_Files.addAction(action)
+
+    def clearRecentFilesMenu(self):
+        self.menuRecent_Files.clear()
+        settings = QSettings('TaniDev', 'XL_Reader')
+        settings.setValue('recent_files', [])
+
     def getInfo(self):
         subCodeOccured = 0
         # Load the workbook and active sheet
@@ -72,6 +108,8 @@ class MyApp(QMainWindow, Ui_MainWindow):
         wb = openpyxl.load_workbook(window.filePath)
         sheet = wb.active
 
+        rows_data = []
+
         for column_cells in sheet.iter_cols(min_row=1, max_row=1, values_only=True):  # noqa E501
             for cell_value in column_cells:
                 if cell_value == "Marks":
@@ -81,20 +119,52 @@ class MyApp(QMainWindow, Ui_MainWindow):
                     # Fetch data from all cells in the column except the first row # noqa E501
                     for row_cells in sheet.iter_rows(min_row=2, max_row=None,
                                                      min_col=column_index, max_col=column_index, values_only=True):  # noqa E501
-                        for cell_value in row_cells:
-                            # Do something with the cell value
-                            if cell_value is None:
-                                continue
-                            elif cell_value == self.subCode:
-                                subCodeOccured += 1
+                        if row_cells[0] == self.subCode:  # Check if cell_value == self.subCode   # noqa E501
+                            rows_data.append(row_cells)  # Add row to list if subCode is found    # noqa E501
+                            subCodeOccured += 1
 
         self.subCodeOccurCount = subCodeOccured
-
         self.makeTable()
 
     def makeTable(self):
         self.tableWidget.setRowCount(self.subCodeOccurCount)
         self.tableWidget.setColumnCount(4)
+
+        for i in range(self.tableWidget.columnCount()):
+            self.tableWidget.setItem(i, 2, QTableWidgetItem(str(self.subCode)))
+
+    def saveFile(self):
+        # Create a new workbook and sheet
+        workbook = openpyxl.Workbook()
+        sheet = workbook.active
+
+        # copy headers
+        for column in range(self.tableWidget.columnCount()):
+            header_item = (self.tableWidget.horizontalHeaderItem(column))
+            if header_item is not None:
+                sheet.cell(row=1, column=column+1, value=header_item.text())
+
+        # copy data
+        for row in range(self.tableWidget.rowCount()):
+            for column in range(self.tableWidget.columnCount()):
+                item = (self.tableWidget.item(row, column))
+                if item is not None:
+                    sheet.cell(row=row+2, column=column+1, value=item.text())
+
+        savePath, _ = QFileDialog.getSaveFileName(self.centralwidget, "Save File", filter="Excel Files (*.xlsx)")  # noqa
+
+        if savePath:
+            dirPath, fileNameExt = os.path.split(savePath)
+            fileName, fileExt = os.path.splitext(fileNameExt)
+
+            if fileExt != ".xlsx":
+                fileExt = ".xlsx"
+
+            savePath = os.path.join(dirPath, fileName + fileExt)
+
+            workbook.save(savePath)
+        else:
+            return
 
 
 if __name__ == "__main__":
