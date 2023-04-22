@@ -153,14 +153,71 @@ class MyApp(QMainWindow, Ui_MainWindow):
                             subCodeOccured += 1
 
         self.subCodeOccurCount = subCodeOccured
+        self.organiseData()
+
+    def organiseData(self):
+        wb = openpyxl.load_workbook(window.filePath)
+        sheet = wb[self.sheet]
+
+        max_row = sheet.max_row
+
+        # Define the selected subject code (example: 370)
+        selected_subject_code = self.subCode
+
+        # Create a list to store the filtered data
+        self.filtered_data = []
+
+        # Loop through each row in the worksheet
+        for row in range(2, max_row+1):
+            # Get the value of the cell in the second column of the current row
+            cell_value = sheet.cell(row=row, column=2).value
+
+            # Check if the cell value contains the selected subject code
+            if str(selected_subject_code) in str(cell_value):
+                # If there is a match, get the name, marks, and grade of the student
+                name = sheet.cell(row=row, column=1).value
+
+                # Get the marks from the cell immediately below the current cell
+                marks = sheet.cell(row=row+1, column=2).value
+
+                grade = sheet.cell(row=row+1, column=3).value
+
+                # Add the filtered data to the list
+                self.filtered_data.append([name, marks, grade])
+
+        # Print the filtered data
         self.makeTable()
 
     def makeTable(self):
-        self.tableWidget.setRowCount(self.subCodeOccurCount)
-        self.tableWidget.setColumnCount(4)
+        dataLen = len(self.filtered_data)
+        self.tableWidget.setRowCount(dataLen)
+        self.tableWidget.setColumnCount(3)
+        self.totalStudentValue.setText(str(dataLen))
+        students = [i for i in self.filtered_data]
+        name = []
+        marks = []
+        grades = []
 
-        for i in range(self.tableWidget.columnCount()):
-            self.tableWidget.setItem(i, 2, QTableWidgetItem(str(self.subCode)))
+        for i in students:
+            name.append(i[0])
+            marks.append(str(i[1]))
+            grades.append(i[2])
+
+        for i in range(dataLen):
+            self.tableWidget.setItem(i, 0, QTableWidgetItem(name[i]))
+            self.tableWidget.setItem(i, 1, QTableWidgetItem(marks[i]))
+            self.tableWidget.setItem(i, 2, QTableWidgetItem(grades[i]))
+
+        sum = 0
+        for i in marks:
+            sum += int(i)
+            avg = round(sum/len(marks), 2)
+
+        self.maxScoreValue.setText(str(max(marks)))
+        self.minScoreValue.setText(str(min(marks)))
+        self.maxScoreValue_2.setText(name[marks.index(max(marks))])
+        self.minScoreValue_2.setText(name[marks.index(min(marks))])
+        self.totalStudentValue_2.setText(str(avg))
 
     def saveFile(self):
         # Create a new workbook and sheet
