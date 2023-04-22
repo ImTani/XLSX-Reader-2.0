@@ -5,7 +5,7 @@ import openpyxl
 from main import Ui_MainWindow
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QSettings
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication, QTableWidgetItem  # noqa E501
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication, QTableWidgetItem, QMessageBox  # noqa E501
 
 
 class MyApp(QMainWindow, Ui_MainWindow):
@@ -13,6 +13,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.updateRecentFilesMenu()
+        self.sheetCheckButton.clicked.connect(self.loadSheet)
         self.browseButton.clicked.connect(self.browseFiles)
         self.checkButton.clicked.connect(self.getInfo)
         self.saveButton.clicked.connect(self.saveFile)
@@ -27,7 +28,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         self.filePath = browsedFilePath[0]
         if self.filePath:
             self.tableWidget.setRowCount(0)
-            self.ReadFile(self.filePath)
+            self.getSheets()
         else:
             self.pathLineEdit.setText("No file selected.")
 
@@ -38,18 +39,25 @@ class MyApp(QMainWindow, Ui_MainWindow):
 
         self.filePath = filePath
 
-        self.addRecentFile(filePath)
-        self.pathLineEdit.setText(filePath)
-
         wb = openpyxl.load_workbook(filePath)
-        sheet = wb.active
+        sheet = wb[self.sheet]
 
         num_rows = sheet.max_row # noqa F841
         num_columns = sheet.max_column # noqa F841
 
         first_row_values = [cell.value for cell in sheet[1]]
 
-        marks_column_index = first_row_values.index("Marks") + 1
+        try:
+            marks_column_index = first_row_values.index("Marks") + 1
+        except ValueError:
+            error_dialog = QMessageBox()
+            error_dialog.setIcon(QMessageBox.Critical)
+            error_dialog.setWindowTitle("Error")
+            error_dialog.setWindowIcon(self.icon)
+            error_dialog.setText("The selected sheet does not contain the 'Marks' column.")  # noqa E501
+            error_dialog.exec_()
+            self.tableWidget.setRowCount(0)
+            return
 
         mark_values_set = set()
         # Initialize a variable to store the previous row number
@@ -99,6 +107,26 @@ class MyApp(QMainWindow, Ui_MainWindow):
         settings = QSettings('TaniDev', 'XL_Reader')
         settings.setValue('recent_files', [])
 
+    def getSheets(self):
+
+        self.addRecentFile(self.filePath)
+        self.pathLineEdit.setText(self.filePath)
+
+        workbook = openpyxl.load_workbook(self.filePath)
+        # Get the sheet names
+        sheet_names = workbook.sheetnames
+        for i in sheet_names:
+            self.sheetDropbox.addItem(i)
+
+        self.sheet = sheet_names[0]
+
+        self.ReadFile(self.filePath)
+
+    def loadSheet(self):
+        self.sheet = self.sheetDropbox.currentText()
+        self.comboBox.clear()
+        self.ReadFile(self.filePath)
+
     def getInfo(self):
         subCodeOccured = 0
         # Load the workbook and active sheet
@@ -107,7 +135,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         except ValueError:
             return
         wb = openpyxl.load_workbook(window.filePath)
-        sheet = wb.active
+        sheet = wb[self.sheet]
 
         rows_data = []
 

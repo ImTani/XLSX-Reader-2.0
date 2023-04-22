@@ -27,7 +27,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>F:/Download/icons8-microsoft-excel-50.png</normaloff>F:/Download/icons8-microsoft-excel-50.png</iconset>
+    <normaloff>windowIcon.png</normaloff>windowIcon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLineEdit" name="pathLineEdit">
@@ -87,7 +87,7 @@
    <widget class="QLabel" name="selectedFile_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>330</x>
       <y>100</y>
       <width>161</width>
       <height>21</height>
@@ -112,7 +112,7 @@
    <widget class="QComboBox" name="comboBox">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>500</x>
       <y>100</y>
       <width>69</width>
       <height>22</height>
@@ -122,7 +122,7 @@
    <widget class="QPushButton" name="checkButton">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>580</x>
       <y>100</y>
       <width>61</width>
       <height>23</height>
@@ -319,6 +319,54 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="selectedFile_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Bahnschrift</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Select Sheet :</string>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sheetCheckButton">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>100</y>
+      <width>61</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="sheetDropbox">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>100</y>
+      <width>69</width>
+      <height>22</height>
+     </rect>
     </property>
    </widget>
   </widget>
