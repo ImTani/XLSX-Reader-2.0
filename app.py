@@ -13,7 +13,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.updateRecentFilesMenu()
-        self.sheetCheckButton.clicked.connect(self.loadSheet)
+        self.sheetDropbox.currentIndexChanged.connect(self.loadSheet)
         self.browseButton.clicked.connect(self.browseFiles)
         self.checkButton.clicked.connect(self.getInfo)
         self.saveButton.clicked.connect(self.saveFile)
@@ -28,7 +28,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         self.filePath = browsedFilePath[0]
         if self.filePath:
             self.tableWidget.setRowCount(0)
-            self.getSheets()
+            self.getSheets(self.filePath)
         else:
             self.pathLineEdit.setText("No file selected.")
 
@@ -40,8 +40,10 @@ class MyApp(QMainWindow, Ui_MainWindow):
         self.filePath = filePath
 
         wb = openpyxl.load_workbook(filePath)
-        sheet = wb[self.sheet]
-
+        try:
+            sheet = wb[self.sheet]
+        except KeyError:
+            return
         num_rows = sheet.max_row # noqa F841
         num_columns = sheet.max_column # noqa F841
 
@@ -99,7 +101,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         self.menuRecent_Files.clear()
         for i, file_path in enumerate(recent_files):
             action = QtWidgets.QAction(f"{i+1}. {file_path}", self)
-            action.triggered.connect(lambda _, fp=file_path: self.ReadFile(fp))
+            action.triggered.connect(lambda _, fp=file_path: self.getSheets(fp))
             self.menuRecent_Files.addAction(action)
 
     def clearRecentFilesMenu(self):
@@ -107,12 +109,14 @@ class MyApp(QMainWindow, Ui_MainWindow):
         settings = QSettings('TaniDev', 'XL_Reader')
         settings.setValue('recent_files', [])
 
-    def getSheets(self):
+    def getSheets(self, filePath):
+        self.filePath = filePath
 
-        self.addRecentFile(self.filePath)
+        self.sheetDropbox.clear()
+        self.addRecentFile(filePath)
         self.pathLineEdit.setText(self.filePath)
 
-        workbook = openpyxl.load_workbook(self.filePath)
+        workbook = openpyxl.load_workbook(filePath)
         # Get the sheet names
         sheet_names = workbook.sheetnames
         for i in sheet_names:
@@ -120,11 +124,17 @@ class MyApp(QMainWindow, Ui_MainWindow):
 
         self.sheet = sheet_names[0]
 
-        self.ReadFile(self.filePath)
+        self.ReadFile(filePath)
 
     def loadSheet(self):
         self.sheet = self.sheetDropbox.currentText()
         self.comboBox.clear()
+        self.maxScoreValue.setText('')
+        self.minScoreValue.setText('')
+        self.maxScoreValue_2.setText('')
+        self.minScoreValue_2.setText('')
+        self.totalStudentValue_2.setText('')
+        self.totalStudentValue.setText('')
         self.ReadFile(self.filePath)
 
     def getInfo(self):
@@ -210,7 +220,17 @@ class MyApp(QMainWindow, Ui_MainWindow):
 
         sum = 0
         for i in marks:
-            sum += int(i)
+            try:
+                sum += int(i)
+            except ValueError:
+                error_dialog = QMessageBox()
+                error_dialog.setIcon(QMessageBox.Warning)
+                error_dialog.setWindowTitle("Error")
+                error_dialog.setWindowIcon(self.icon)
+                error_dialog.setText("The given sheet is not a marksheet.")  # noqa E501
+                error_dialog.exec_()
+                self.tableWidget.setRowCount(0)
+                return
             avg = round(sum/len(marks), 2)
 
         self.maxScoreValue.setText(str(max(marks)))
