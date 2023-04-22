@@ -344,7 +344,6 @@
     <addaction name="menuRecent_Files"/>
     <addaction name="separator"/>
     <addaction name="actionSave_2"/>
-    <addaction name="actionSave_As"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">

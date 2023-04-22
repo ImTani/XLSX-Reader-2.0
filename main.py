@@ -166,7 +166,6 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.menuRecent_Files.menuAction())
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionSave_2)
-        self.menuFile.addAction(self.actionSave_As)
         self.menuSettings_2.addAction(self.actionClear_Recent_Files)
         self.menuSettings.addAction(self.menuSettings_2.menuAction())
         self.menuHelp.addAction(self.actionCheck_For_Updates)

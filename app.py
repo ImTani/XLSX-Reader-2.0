@@ -12,6 +12,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.updateRecentFilesMenu()
         self.browseButton.clicked.connect(self.browseFiles)
         self.checkButton.clicked.connect(self.getInfo)
         self.saveButton.clicked.connect(self.saveFile)
@@ -22,7 +23,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         # Add your application logic here
 
     def browseFiles(self):
-        browsedFilePath = QFileDialog.getOpenFileName(self.centralwidget, "Open File", filter="Excel Files (*xlsx)") # noqa E501
+        browsedFilePath = QFileDialog.getOpenFileName(self.centralwidget, "Open File", filter="Excel Files (*.xlsx)") # noqa E501
         self.filePath = browsedFilePath[0]
         if self.filePath:
             self.tableWidget.setRowCount(0)
