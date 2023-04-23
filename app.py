@@ -135,38 +135,33 @@ class MyApp(QMainWindow, Ui_MainWindow):
         self.minScoreValue_2.setText('')
         self.totalStudentValue_2.setText('')
         self.totalStudentValue.setText('')
-        self.ReadFile(self.filePath)
+        try:
+            self.ReadFile(self.filePath)
+        except openpyxl.utils.exceptions.InvalidFileException:
+            return
 
     def getInfo(self):
-        subCodeOccured = 0
         # Load the workbook and active sheet
         try:
             self.subCode = int(self.comboBox.currentText())
         except ValueError:
             return
-        wb = openpyxl.load_workbook(window.filePath)
-        sheet = wb[self.sheet]
-
-        rows_data = []
-
-        for column_cells in sheet.iter_cols(min_row=1, max_row=1, values_only=True):  # noqa E501
-            for cell_value in column_cells:
-                if cell_value == "Marks":
-                    # Get the column index of the "Marks" cell
-                    column_index = column_cells.index(cell_value) + 2
-
-                    # Fetch data from all cells in the column except the first row # noqa E501
-                    for row_cells in sheet.iter_rows(min_row=2, max_row=None,
-                                                     min_col=column_index, max_col=column_index, values_only=True):  # noqa E501
-                        if row_cells[0] == self.subCode:  # Check if cell_value == self.subCode   # noqa E501
-                            rows_data.append(row_cells)  # Add row to list if subCode is found    # noqa E501
-                            subCodeOccured += 1
-
-        self.subCodeOccurCount = subCodeOccured
         self.organiseData()
 
     def organiseData(self):
-        wb = openpyxl.load_workbook(window.filePath)
+        try:
+            wb = openpyxl.load_workbook(window.filePath)
+        except openpyxl.utils.exceptions.InvalidFileException:
+            error_dialog = QMessageBox()
+            error_dialog.setIcon(QMessageBox.Warning)
+            error_dialog.setWindowTitle("Error")
+            error_dialog.setWindowIcon(self.icon)
+            error_dialog.setText("No file is selected.")  # noqa E501
+            error_dialog.exec_()
+            self.tableWidget.setRowCount(0)
+            self.sheetDropbox.clear()
+            self.comboBox.clear()
+            return
         sheet = wb[self.sheet]
 
         max_row = sheet.max_row
