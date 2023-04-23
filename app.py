@@ -4,8 +4,9 @@ import webbrowser
 import openpyxl
 from main import Ui_MainWindow
 from PyQt5 import QtWidgets
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import QSettings
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication, QTableWidgetItem, QMessageBox  # noqa E501
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication, QTableWidgetItem, QMessageBox, QSplashScreen  # noqa E501
 
 
 class MyApp(QMainWindow, Ui_MainWindow):
@@ -270,6 +271,10 @@ class MyApp(QMainWindow, Ui_MainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    pixmap = QPixmap('./resources/splashScreen.png')
+    splash = QSplashScreen(pixmap)
+    splash.show()
     window = MyApp()
     window.show()
+    splash.finish(window)
     sys.exit(app.exec_())
