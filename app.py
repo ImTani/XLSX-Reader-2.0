@@ -51,7 +51,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         first_row_values = [cell.value for cell in sheet[1]]
 
         try:
-            marks_column_index = first_row_values.index("Marks") + 1
+            marks_column_index = 4
         except ValueError:
             error_dialog = QMessageBox()
             error_dialog.setIcon(QMessageBox.Critical)
@@ -176,43 +176,54 @@ class MyApp(QMainWindow, Ui_MainWindow):
         # Loop through each row in the worksheet
         for row in range(2, max_row+1):
             # Get the value of the cell in the second column of the current row
-            cell_value = sheet.cell(row=row, column=2).value
+            cell_value = sheet.cell(row=row, column=4).value
 
             # Check if the cell value contains the selected subject code
             if str(selected_subject_code) in str(cell_value):
-                # If there is a match, get the name, marks, and grade of the student
-                name = sheet.cell(row=row, column=1).value
+                roll = sheet.cell(row=row, column=1).value
 
-                # Get the marks from the cell immediately below the current cell
-                marks = sheet.cell(row=row+1, column=2).value
+                gender = sheet.cell(row=row, column=2).value
 
-                grade = sheet.cell(row=row+1, column=3).value
+                name = sheet.cell(row=row, column=3).value
+
+                marks = sheet.cell(row=row+1, column=4).value
+
+                grade = sheet.cell(row=row+1, column=5).value
 
                 # Add the filtered data to the list
-                self.filtered_data.append([name, marks, grade])
+                self.filtered_data.append([roll, gender, name, marks, grade])
 
-        # Print the filtered data
         self.makeTable()
 
     def makeTable(self):
         dataLen = len(self.filtered_data)
         self.tableWidget.setRowCount(dataLen)
-        self.tableWidget.setColumnCount(3)
+        self.tableWidget.setColumnCount(5)
         self.totalStudentValue.setText(str(dataLen))
-        students = [i for i in self.filtered_data]
+        roll = []
+        gender = []
         name = []
         marks = []
         grades = []
 
-        for i in students:
-            name.append(i[0])
-            marks.append(str(i[1]))
-            grades.append(i[2])
+        for i in self.filtered_data:
+            roll.append(str(i[0]))
+            gender.append(i[1])
+            name.append(i[2])
+            marks.append(str(i[3]))
+            grades.append(i[4])
 
         for i in range(dataLen):
-            self.tableWidget.setItem(i, 0, QTableWidgetItem(name[i]))
-            self.tableWidget.setItem(i, 1, QTableWidgetItem(marks[i]))
-            self.tableWidget.setItem(i, 2, QTableWidgetItem(grades[i]))
+            self.tableWidget.setItem(i, 0, QTableWidgetItem(roll[i]))
+            self.tableWidget.setItem(i, 1, QTableWidgetItem(gender[i]))
+            self.tableWidget.setItem(i, 2, QTableWidgetItem(name[i]))
+            self.tableWidget.setItem(i, 3, QTableWidgetItem(marks[i]))
+            self.tableWidget.setItem(i, 4, QTableWidgetItem(grades[i]))
+
+        self.tableWidget.resizeColumnsToContents()
+        for column in range(self.tableWidget.columnCount()):
+            current_width = self.tableWidget.columnWidth(column)
+            self.tableWidget.setColumnWidth(column, current_width + 10)
 
         sum = 0
         for i in marks:

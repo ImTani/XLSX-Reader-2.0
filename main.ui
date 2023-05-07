@@ -149,12 +149,31 @@
     <property name="mouseTracking">
      <bool>true</bool>
     </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::AdjustToContents</enum>
+    </property>
     <property name="dragDropOverwriteMode">
      <bool>false</bool>
     </property>
     <property name="gridStyle">
      <enum>Qt::DashLine</enum>
     </property>
+    <attribute name="horizontalHeaderCascadingSectionResizes">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>100</number>
+    </attribute>
+    <column>
+     <property name="text">
+      <string>Roll. No.</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Gender</string>
+     </property>
+    </column>
     <column>
      <property name="text">
       <string>Name</string>
