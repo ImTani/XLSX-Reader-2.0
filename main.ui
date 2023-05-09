@@ -84,60 +84,12 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="selectedFile_2">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>70</y>
-      <width>91</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Bahnschrift</family>
-      <pointsize>13</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Subject Code</string>
-    </property>
-    <property name="scaledContents">
-     <bool>false</bool>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="comboBox">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>70</y>
-      <width>69</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="checkButton">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>70</y>
-      <width>61</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Check</string>
-    </property>
-   </widget>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>179</y>
-      <width>316</width>
+      <width>311</width>
       <height>251</height>
      </rect>
     </property>
@@ -203,7 +155,7 @@
    <widget class="QPushButton" name="saveButton">
     <property name="geometry">
      <rect>
-      <x>346</x>
+      <x>350</x>
       <y>400</y>
       <width>291</width>
       <height>30</height>
@@ -213,299 +165,60 @@
      <string>Save</string>
     </property>
    </widget>
-   <widget class="QLabel" name="infoLabel">
+   <widget class="QWidget" name="horizontalLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>426</x>
-      <y>180</y>
-      <width>98</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Information</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="maxScoreText">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>270</y>
-      <width>71</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Highest Score</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="minScoreText">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>324</y>
-      <width>71</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Lowest Score</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="totalStudentText">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>220</y>
-      <width>71</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>No. Of Students</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="maxScoreValue">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>285</y>
-      <width>71</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="minScoreValue">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>335</y>
-      <width>71</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="totalStudentValue">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>235</y>
-      <width>71</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="sheetDropbox">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
+      <x>10</x>
       <y>70</y>
-      <width>61</width>
-      <height>22</height>
+      <width>321</width>
+      <height>31</height>
      </rect>
     </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QLabel" name="selectedFile_2">
+       <property name="font">
+        <font>
+         <family>Bahnschrift</family>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Subject Code</string>
+       </property>
+       <property name="scaledContents">
+        <bool>false</bool>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="sheetDropbox"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="checkButton">
+       <property name="text">
+        <string>Check</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
-   <widget class="QLabel" name="maxScoreText_2">
-    <property name="geometry">
-     <rect>
-      <x>500</x>
-      <y>271</y>
-      <width>71</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Highest Scorer</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="maxScoreValue_2">
-    <property name="geometry">
-     <rect>
-      <x>560</x>
-      <y>286</y>
-      <width>71</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="minScoreValue_2">
-    <property name="geometry">
-     <rect>
-      <x>560</x>
-      <y>336</y>
-      <width>71</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="totalStudentText_2">
-    <property name="geometry">
-     <rect>
-      <x>500</x>
-      <y>221</y>
-      <width>71</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Class Average</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="minScoreText_2">
-    <property name="geometry">
-     <rect>
-      <x>500</x>
-      <y>325</y>
-      <width>71</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Lowest Scorer</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="totalStudentValue_2">
-    <property name="geometry">
-     <rect>
-      <x>560</x>
-      <y>236</y>
-      <width>71</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
+   <widget class="QWidget" name="horizontalLayoutWidget_4">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>140</y>
       <width>311</width>
-      <height>25</height>
+      <height>31</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
      <item>
       <widget class="QLineEdit" name="searchLineEdit">
        <property name="text">
@@ -525,29 +238,313 @@
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="calculateButton">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>360</y>
+      <width>291</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Check Statistics</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="minScoreValue_2">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>315</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="maxScoreText_2">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>250</y>
+      <width>71</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Highest Scorer</string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="totalStudentValue">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>214</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="totalStudentText">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>199</y>
+      <width>71</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>No. Of Students</string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="maxScoreValue_2">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>265</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="totalStudentValue_2">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>215</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="infoLabel">
+    <property name="geometry">
+     <rect>
+      <x>436</x>
+      <y>159</y>
+      <width>98</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Information</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="minScoreText">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>303</y>
+      <width>71</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Lowest Score</string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="minScoreValue">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>314</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="minScoreText_2">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>304</y>
+      <width>71</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Lowest Scorer</string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="maxScoreText">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>249</y>
+      <width>71</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Highest Score</string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="maxScoreValue">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>264</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="totalStudentText_2">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>200</y>
+      <width>71</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Class Average</string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
    <zorder>pathLineEdit</zorder>
    <zorder>browseButton</zorder>
    <zorder>selectedFile</zorder>
-   <zorder>selectedFile_2</zorder>
-   <zorder>comboBox</zorder>
-   <zorder>checkButton</zorder>
    <zorder>saveButton</zorder>
-   <zorder>infoLabel</zorder>
-   <zorder>maxScoreText</zorder>
-   <zorder>minScoreText</zorder>
-   <zorder>totalStudentText</zorder>
-   <zorder>maxScoreValue</zorder>
-   <zorder>minScoreValue</zorder>
-   <zorder>totalStudentValue</zorder>
-   <zorder>sheetDropbox</zorder>
    <zorder>tableWidget</zorder>
-   <zorder>maxScoreText_2</zorder>
-   <zorder>maxScoreValue_2</zorder>
+   <zorder>horizontalLayoutWidget_3</zorder>
+   <zorder>horizontalLayoutWidget_4</zorder>
+   <zorder>calculateButton</zorder>
    <zorder>minScoreValue_2</zorder>
-   <zorder>totalStudentText_2</zorder>
-   <zorder>minScoreText_2</zorder>
+   <zorder>maxScoreText_2</zorder>
+   <zorder>totalStudentValue</zorder>
+   <zorder>totalStudentText</zorder>
+   <zorder>maxScoreValue_2</zorder>
    <zorder>totalStudentValue_2</zorder>
-   <zorder>horizontalLayoutWidget</zorder>
+   <zorder>infoLabel</zorder>
+   <zorder>minScoreText</zorder>
+   <zorder>minScoreValue</zorder>
+   <zorder>minScoreText_2</zorder>
+   <zorder>maxScoreText</zorder>
+   <zorder>maxScoreValue</zorder>
+   <zorder>totalStudentText_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
