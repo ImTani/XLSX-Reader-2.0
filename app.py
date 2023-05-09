@@ -1,6 +1,7 @@
 import sys
 import os
 import webbrowser
+import statistics
 import openpyxl
 from main import Ui_MainWindow
 from PyQt5 import QtWidgets
@@ -22,6 +23,7 @@ class MyApp(QMainWindow, Ui_MainWindow):
         self.actionCheck_For_Updates.triggered.connect(self.openGithub)
         self.actionSave_2.triggered.connect(self.saveFile)
         self.actionClear_Recent_Files.triggered.connect(self.clearRecentFilesMenu)  # noqa E501
+        self.searchButton.clicked.connect(self.search)
         # Add your application logic here
 
     def browseFiles(self):
@@ -278,6 +280,25 @@ class MyApp(QMainWindow, Ui_MainWindow):
             workbook.save(savePath)
         else:
             return
+
+    def search(self):
+        search_text = self.searchLineEdit.text()
+        if not search_text:
+            return
+
+        for row in range(self.tableWidget.rowCount()):
+            for col in range(self.tableWidget.columnCount()):
+                item = self.tableWidget.item(row, col)
+                if item is not None and search_text in item.text():
+                    self.tableWidget.setCurrentCell(row, col)
+                    self.tableWidget.clearSelection()
+                    item.setSelected(True)
+                    self.tableWidget.setFocus()
+                    return
+
+        QMessageBox.warning(
+            self, 'Search', f'"{search_text}" not found in the table.')
+
 
 
 if __name__ == "__main__":

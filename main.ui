@@ -37,7 +37,7 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>40</y>
+      <y>20</y>
       <width>421</width>
       <height>23</height>
      </rect>
@@ -50,7 +50,7 @@
     <property name="geometry">
      <rect>
       <x>550</x>
-      <y>40</y>
+      <y>20</y>
       <width>91</width>
       <height>23</height>
      </rect>
@@ -63,7 +63,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>40</y>
+      <y>20</y>
       <width>111</width>
       <height>21</height>
      </rect>
@@ -71,7 +71,7 @@
     <property name="font">
      <font>
       <family>Bahnschrift</family>
-      <pointsize>14</pointsize>
+      <pointsize>13</pointsize>
      </font>
     </property>
     <property name="text">
@@ -88,19 +88,19 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>100</y>
-      <width>161</width>
+      <y>70</y>
+      <width>91</width>
       <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Bahnschrift</family>
-      <pointsize>14</pointsize>
+      <pointsize>13</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>Select Subject Code :</string>
+     <string>Subject Code</string>
     </property>
     <property name="scaledContents">
      <bool>false</bool>
@@ -113,7 +113,7 @@
     <property name="geometry">
      <rect>
       <x>180</x>
-      <y>100</y>
+      <y>70</y>
       <width>69</width>
       <height>22</height>
      </rect>
@@ -123,7 +123,7 @@
     <property name="geometry">
      <rect>
       <x>260</x>
-      <y>100</y>
+      <y>70</y>
       <width>61</width>
       <height>23</height>
      </rect>
@@ -136,9 +136,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>170</y>
+      <y>179</y>
       <width>316</width>
-      <height>260</height>
+      <height>251</height>
      </rect>
     </property>
     <property name="font">
@@ -151,6 +151,9 @@
     </property>
     <property name="sizeAdjustPolicy">
      <enum>QAbstractScrollArea::AdjustToContents</enum>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
     </property>
     <property name="dragDropOverwriteMode">
      <bool>false</bool>
@@ -357,37 +360,12 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="selectedFile_3">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>100</y>
-      <width>161</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Bahnschrift</family>
-      <pointsize>14</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Select Sheet :</string>
-    </property>
-    <property name="scaledContents">
-     <bool>false</bool>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QComboBox" name="sheetDropbox">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>100</y>
-      <width>69</width>
+      <x>110</x>
+      <y>70</y>
+      <width>61</width>
       <height>22</height>
      </rect>
     </property>
@@ -518,6 +496,35 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>140</y>
+      <width>311</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLineEdit" name="searchLineEdit">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Search in Table</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="searchButton">
+       <property name="text">
+        <string>Search</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
    <zorder>pathLineEdit</zorder>
    <zorder>browseButton</zorder>
    <zorder>selectedFile</zorder>
@@ -532,7 +539,6 @@
    <zorder>maxScoreValue</zorder>
    <zorder>minScoreValue</zorder>
    <zorder>totalStudentValue</zorder>
-   <zorder>selectedFile_3</zorder>
    <zorder>sheetDropbox</zorder>
    <zorder>tableWidget</zorder>
    <zorder>maxScoreText_2</zorder>
@@ -541,6 +547,7 @@
    <zorder>totalStudentText_2</zorder>
    <zorder>minScoreText_2</zorder>
    <zorder>totalStudentValue_2</zorder>
+   <zorder>horizontalLayoutWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
